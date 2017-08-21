@@ -41,7 +41,7 @@ describe(CmRenderer.className, function()
     {
         configurationCreator: function(entity, macro, settings, parser, renderer, transformer, globalRepository, buildConfiguration)
         {
-            const moduleConfiguration = new CmModuleConfiguration(global.fixtures.globalConfiguration);
+            const moduleConfiguration = new CmModuleConfiguration(global.fixtures.globalConfiguration, buildConfiguration);
             return new CmConfiguration(entity, macro, settings, parser, renderer, transformer, globalRepository, buildConfiguration, moduleConfiguration);
         },
         basePath: CM_FIXTURES + '/renderer',

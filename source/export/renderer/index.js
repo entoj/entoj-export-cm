@@ -4,13 +4,19 @@
 module.exports =
 {
     CmCallNodeRenderer: require('./CmCallNodeRenderer.js').CmCallNodeRenderer,
-    CmMacroNodeRenderer: require('./CmMacroNodeRenderer.js').CmMacroNodeRenderer,
     CmLinkUrlFilterRenderer: require('./CmLinkUrlFilterRenderer.js').CmLinkUrlFilterRenderer,
+    CmMacroNodeRenderer: require('./CmMacroNodeRenderer.js').CmMacroNodeRenderer,
+    CmMarkupFilterRenderer: require('./CmMarkupFilterRenderer.js').CmMarkupFilterRenderer,
+    CmMetadataFilterRenderer: require('./CmMetadataFilterRenderer.js').CmMetadataFilterRenderer,
+    CmSettingsFilterRenderer: require('./CmSettingsFilterRenderer.js').CmSettingsFilterRenderer,
 
     rendererList:
     [
         require('./CmCallNodeRenderer.js').CmCallNodeRenderer,
+        require('./CmLinkUrlFilterRenderer.js').CmLinkUrlFilterRenderer,
         require('./CmMacroNodeRenderer.js').CmMacroNodeRenderer,
-        require('./CmLinkUrlFilterRenderer.js').CmLinkUrlFilterRenderer
+        require('./CmMetadataFilterRenderer.js').CmMetadataFilterRenderer,
+        require('./CmMarkupFilterRenderer.js').CmMarkupFilterRenderer,
+        require('./CmSettingsFilterRenderer.js').CmSettingsFilterRenderer
     ].concat(require('entoj-export-jsp').export.renderer.rendererList)
 };
