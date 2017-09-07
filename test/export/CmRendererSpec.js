@@ -44,7 +44,8 @@ describe(CmRenderer.className, function()
             const moduleConfiguration = new CmModuleConfiguration(global.fixtures.globalConfiguration, buildConfiguration);
             return new CmConfiguration(entity, macro, settings, parser, renderer, transformer, globalRepository, buildConfiguration, moduleConfiguration);
         },
-        basePath: CM_FIXTURES + '/renderer',
+        fixtureInputPath: require('entoj-system/test').fixture.export.renderer,
+        fixtureExpectedPath: CM_FIXTURES + '/renderer',
         createFixture: () => projectFixture.createDynamic(fixtureConfiguration)
     };
     const prepareParameters = (parameters) =>
