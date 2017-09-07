@@ -5,6 +5,7 @@
  * @ignore
  */
 const JspFilterReplacementRenderer = require('entoj-export-jsp').export.renderer.JspFilterReplacementRenderer;
+const Node = require('entoj-system').export.ast.Node;
 const co = require('co');
 
 
@@ -59,8 +60,33 @@ class CmLinkUrlFilterRenderer extends JspFilterReplacementRenderer
             }
             result+= 'target="${ ';
             result+= yield configuration.renderer.renderNode(filter.value, configuration);
-            result+= ' }" ';
-            result+='/>';
+            result+= ' }"';
+
+            if (filter.arguments.length &&
+                filter.arguments[0].find('ComplexVariableNode'))
+            {
+                result+= '>';
+                const params = filter.arguments[0].find('ComplexVariableNode').value;
+                for (const key in params)
+                {
+                    result+= '<cm:param name="' + key + '" ';
+                    result+= 'value="${ ';
+                    if (params[key] instanceof Node)
+                    {
+                        result+= yield configuration.renderer.renderNode(params[key], configuration);
+                    }
+                    else
+                    {
+                        result+= params[key];
+                    }
+                    result+= ' }" />';
+                }
+                result+= '</cm:link>';
+            }
+            else
+            {
+                result+=' />';
+            }
 
             return result;
         });
