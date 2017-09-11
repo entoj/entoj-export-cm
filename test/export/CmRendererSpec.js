@@ -50,9 +50,21 @@ describe(CmRenderer.className, function()
     };
     const prepareParameters = (parameters) =>
     {
-        const classes = CmNodeRenderers.rendererList;
-        const nodeRenderers = global.fixtures.context.createInstances(classes);
-        return [nodeRenderers];
+        return [global.fixtures.context.createInstances(CmNodeRenderers.rendererList)];
     };
+    beforeEach(function()
+    {
+        const options =
+        {
+            settings:
+            {
+                cm:
+                {
+                    configurationName: 'cm'
+                }
+            }
+        };
+        global.fixtures = projectFixture.createDynamic(options);
+    });
     rendererSpec(CmRenderer, 'export/CmRenderer', prepareParameters, testFixtures, options);
 });
