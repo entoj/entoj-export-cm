@@ -23,13 +23,122 @@ class CmConfiguration extends JspConfiguration
     /**
      * @inheritDocs
      */
+    generateType(configuration, overrides)
+    {
+        // Override type via settings
+        if (overrides && typeof overrides.type === 'string')
+        {
+            configuration.type = overrides.type;
+        }
+
+        // add namespace
+        configuration.namespace = '';
+        if (configuration.type)
+        {
+            const typeParts = configuration.type.split('.');
+            if (typeParts.length > 1)
+            {
+                configuration.type = typeParts.pop();
+                configuration.namespace = typeParts.join('.');
+            }
+        }
+
+        return configuration;
+    }
+
+
+    /**
+     * @inheritDocs
+     */
+    generateViewProperties(configuration, overrides)
+    {
+        // get export configs
+        const exportConfigs = configuration.entity.properties.getByPath('export.' + this.identifier + '', []);
+
+        // add view
+        if (typeof configuration.view !== 'string')
+        {
+            // if possible get the view of the first export
+            if (exportConfigs.length)
+            {
+                configuration.view = exportConfigs[0].view || false;
+            }
+            // when we have a mscoe generate from name
+            if (!configuration.view && configuration.macro)
+            {
+                configuration.view = configuration.macro.name.dasherize();
+            }
+            // otherwise generate from entity name
+            if (!configuration.view)
+            {
+                configuration.view = configuration.entity.idString.dasherize();
+            }
+        }
+
+        // Override view via settings
+        if (overrides && typeof overrides.view === 'string')
+        {
+            configuration.view = overrides.view;
+        }
+
+        // add viewVariant
+        if (!configuration.viewVariant)
+        {
+            // if possible get the viewVariant of the first export
+            if (exportConfigs && exportConfigs.length)
+            {
+                configuration.viewVariant = exportConfigs[0].viewVariant || false;
+            }
+        }
+
+        // Override viewVariant via settings
+        if (overrides && typeof overrides.viewVariant === 'string')
+        {
+            configuration.viewVariant = overrides.viewVariant;
+        }
+
+        return configuration;
+    }
+
+
+    /**
+     * @inheritDocs
+     */
+    generateFilename(configuration)
+    {
+        if (!this.settings.filename)
+        {
+            configuration.filename = '';
+            if (configuration.namespace)
+            {
+                configuration.filename = configuration.namespace + '/';
+            }
+            configuration.filename+= configuration.type + '.' + configuration.view;
+            if (configuration.viewVariant)
+            {
+                configuration.filename+= '[' + configuration.viewVariant + ']';
+            }
+            if (!configuration.filename.endsWith('.jsp'))
+            {
+                configuration.filename+= '.jsp';
+            }
+        }
+
+        return configuration;
+    }
+
+
+
+    /**
+     * @inheritDocs
+     */
     refineConfiguration(configuration)
     {
         const superPromise = super.refineConfiguration(configuration);
         const scope = this;
         const promise = co(function*()
         {
-            const result = yield superPromise;
+            let result = yield superPromise;
 
             // defaults
             result.includeMode = 'jsp-include';
@@ -37,10 +146,15 @@ class CmConfiguration extends JspConfiguration
             // refine macros
             if (result.macro)
             {
+                // get macro settings
+                const macroSettings = (scope.settings.settings && scope.settings.settings[result.macro.name])
+                    ? scope.settings.settings[result.macro.name]
+                    : {};
+
                 // add modelParameter
                 result.modelParameter = result.macro.parameters.find(param => param.name === 'model');
 
-                // add type
+                // add type based on modelParameter
                 if (!result.type)
                 {
                     if (result.modelParameter &&
@@ -55,25 +169,8 @@ class CmConfiguration extends JspConfiguration
                     }
                 }
 
-                // Override type via settings
-                if (scope.settings.settings &&
-                    scope.settings.settings.type &&
-                    scope.settings.settings.type[result.macro.name])
-                {
-                    result.type = scope.settings.settings.type[result.macro.name];
-                }
-
-                // add namespace
-                const typeParts = result.type.split('.');
-                if (typeParts.length > 1)
-                {
-                    result.type = typeParts.pop();
-                    result.namespace = typeParts.join('.');
-                }
-                else
-                {
-                    result.namespace = '';
-                }
+                // generate type
+                result = scope.generateType(result, macroSettings);
 
                 // set includeMode
                 if (result.namespace.length || result.macro.name.endsWith('_dispatcher'))
@@ -84,71 +181,17 @@ class CmConfiguration extends JspConfiguration
                 // set cm specifics
                 if (result.includeMode == 'cm-include')
                 {
-                    // get export configs
-                    const exportConfigs = result.entity.properties.getByPath('export.' + scope.identifier + '', []);
-
-                    // add view
-                    if (!result.view)
-                    {
-                        // if possible get the view of the first export
-                        if (exportConfigs.length)
-                        {
-                            result.view = exportConfigs[0].view || result.macro.name.dasherize();
-                        }
-                        // otherwise generate from macro name
-                        else
-                        {
-                            result.view = result.macro.name.dasherize();
-                        }
-                    }
-
-                    // Override view via settings
-                    if (scope.settings.settings &&
-                        scope.settings.settings.view &&
-                        scope.settings.settings.view[result.macro.name])
-                    {
-                        result.view = scope.settings.settings.view[result.macro.name];
-                    }
-
-                    // add viewVariant
-                    if (!result.viewVariant)
-                    {
-                        // if possible get the viewVariant of the first export
-                        if (exportConfigs.length)
-                        {
-                            result.viewVariant = exportConfigs[0].viewVariant || false;
-                        }
-                    }
-
-                    // Override viewVariant via settings
-                    if (scope.settings.settings &&
-                        scope.settings.settings.viewVariant &&
-                        scope.settings.settings.viewVariant[result.macro.name])
-                    {
-                        result.viewVariant = scope.settings.settings.viewVariant[result.macro.name];
-                    }
-
-                    // create filename
-                    if (!scope.settings.filename)
-                    {
-                        result.filename = '';
-                        if (result.namespace)
-                        {
-                            result.filename = result.namespace + '/';
-                        }
-                        result.filename+= result.type + '.' + result.view;
-                        if (result.viewVariant)
-                        {
-                            result.filename+= '[' + result.viewVariant + ']';
-                        }
-                        if (!result.filename.endsWith('.jsp'))
-                        {
-                            result.filename+= '.jsp';
-                        }
-                    }
+                    result = scope.generateViewProperties(result, macroSettings);
+                    result = scope.generateFilename(result, macroSettings);
                 }
             }
-
+            // refine templates
+            else
+            {
+                result = scope.generateType(result);
+                result = scope.generateViewProperties(result);
+                result = scope.generateFilename(result);
+            }
             return result;
         });
         return promise;
