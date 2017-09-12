@@ -57,7 +57,7 @@ class CmSettingsFilterRenderer extends JspFilterNodeRenderer
                 : 'self';
 
             // Render
-            result+= 'bp:setting(' + context + ', ' + key + ')';
+            result+= 'bp:setting(settingsService, ' + context + ', ' + key + ')';
 
             return result;
         });
