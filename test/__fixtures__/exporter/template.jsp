@@ -9,8 +9,8 @@
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="TK Relaunch" />
-        <jsp:include page="includes/global/global-nojs.jsp"></jsp:include>
-        <jsp:include page="includes/global/global-css.jsp"></jsp:include>
+        <jsp:include page="/includes/global/global-nojs.jsp"></jsp:include>
+        <jsp:include page="/includes/global/global-css.jsp"></jsp:include>
     </head>
     <body class="t-bare <!-- Block bodyClass start -->
 <c:if test="${ not empty self.placementMap.bodyClass.items }"><cm:include self="${ self.placementMap.bodyClass }" view="bodyClass"/></c:if><!-- Block bodyClass end -->
@@ -26,6 +26,6 @@
         <!-- Block footer start -->
 <c:if test="${ not empty self.placementMap.footer.items }"><cm:include self="${ self.placementMap.footer }" view="footer"/></c:if><!-- Block footer end -->
 
-        <jsp:include page="includes/global/global-js.jsp"></jsp:include>
+        <jsp:include page="/includes/global/global-js.jsp"></jsp:include>
     </body>
 </html>

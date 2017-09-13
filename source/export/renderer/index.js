@@ -9,6 +9,7 @@ module.exports =
     CmMacroNodeRenderer: require('./CmMacroNodeRenderer.js').CmMacroNodeRenderer,
     CmMarkupFilterRenderer: require('./CmMarkupFilterRenderer.js').CmMarkupFilterRenderer,
     CmMetadataFilterRenderer: require('./CmMetadataFilterRenderer.js').CmMetadataFilterRenderer,
+    CmNavigationClassFilterRenderer: require('./CmNavigationClassFilterRenderer.js').CmNavigationClassFilterRenderer,
     CmSettingsFilterRenderer: require('./CmSettingsFilterRenderer.js').CmSettingsFilterRenderer,
 
     rendererList:
@@ -19,6 +20,7 @@ module.exports =
         require('./CmMacroNodeRenderer.js').CmMacroNodeRenderer,
         require('./CmMetadataFilterRenderer.js').CmMetadataFilterRenderer,
         require('./CmMarkupFilterRenderer.js').CmMarkupFilterRenderer,
+        require('./CmNavigationClassFilterRenderer.js').CmNavigationClassFilterRenderer,
         require('./CmSettingsFilterRenderer.js').CmSettingsFilterRenderer
     ].concat(require('entoj-export-jsp').export.renderer.rendererList)
 };

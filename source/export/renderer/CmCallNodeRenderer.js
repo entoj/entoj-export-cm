@@ -78,7 +78,11 @@ class CmCallNodeRenderer extends JspCallNodeRenderer
 
             // Get arguments
             const args = yield prepareArguments(node, macroConfiguration, configuration, 'literals');
-            const view = macroConfiguration.view;
+            let view = macroConfiguration.view;
+            if (macroConfiguration.viewVariant && macroConfiguration.viewVariant.length)
+            {
+                view+= '[' + macroConfiguration.viewVariant + ']';
+            }
 
             // Render
             result+= '<cm:include self="' + self + '" ';
