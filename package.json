@@ -1,7 +1,6 @@
 {
   "name": "entoj-export-cm",
   "version": "0.1.0",
-  "private": true,
   "engines": {
     "node": "6.x"
   },
@@ -13,8 +12,8 @@
     "test": "bash scripts/test"
   },
   "dependencies": {
-    "entoj-system": "^0.1.2",
-    "entoj-export-jsp": "^0.1.0",
+    "entoj-system": "^0.1.11",
+    "entoj-export-jsp": "^0.1.1",
     "htmlspecialchars": "^1.0.5",
     "lodash.isplainobject": "^4.0.6"
   },
