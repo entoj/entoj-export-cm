@@ -3,6 +3,7 @@
  */
 module.exports =
 {
+    CmBlockNodeRenderer: require('./CmBlockNodeRenderer.js').CmBlockNodeRenderer,
     CmCallNodeRenderer: require('./CmCallNodeRenderer.js').CmCallNodeRenderer,
     CmLinkUrlFilterRenderer: require('./CmLinkUrlFilterRenderer.js').CmLinkUrlFilterRenderer,
     CmMacroNodeRenderer: require('./CmMacroNodeRenderer.js').CmMacroNodeRenderer,
@@ -12,6 +13,7 @@ module.exports =
 
     rendererList:
     [
+        require('./CmBlockNodeRenderer.js').CmBlockNodeRenderer,
         require('./CmCallNodeRenderer.js').CmCallNodeRenderer,
         require('./CmLinkUrlFilterRenderer.js').CmLinkUrlFilterRenderer,
         require('./CmMacroNodeRenderer.js').CmMacroNodeRenderer,
