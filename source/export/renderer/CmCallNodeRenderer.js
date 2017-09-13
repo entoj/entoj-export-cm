@@ -78,9 +78,7 @@ class CmCallNodeRenderer extends JspCallNodeRenderer
 
             // Get arguments
             const args = yield prepareArguments(node, macroConfiguration, configuration, 'literals');
-            const view = !node.name.endsWith('_dispatcher')
-                ? macroConfiguration.view
-                : '';
+            const view = macroConfiguration.view;
 
             // Render
             result+= '<cm:include self="' + self + '" ';
