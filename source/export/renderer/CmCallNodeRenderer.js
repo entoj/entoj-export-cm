@@ -68,12 +68,19 @@ class CmCallNodeRenderer extends JspCallNodeRenderer
 
             // Get self
             let self = '${ self }';
-            const modelArgument = node.arguments.find(arg => arg.name === 'model');
-            if (modelArgument && modelArgument.value)
+            if (macroConfiguration.self)
             {
-                self = '${ ';
-                self+= yield configuration.renderer.renderNode(modelArgument.value, configuration);
-                self+= ' }';
+                self = '${ ' + macroConfiguration.self + ' }';
+            }
+            else
+            {
+                const modelArgument = node.arguments.find(arg => arg.name === 'model');
+                if (modelArgument && modelArgument.value)
+                {
+                    self = '${ ';
+                    self+= yield configuration.renderer.renderNode(modelArgument.value, configuration);
+                    self+= ' }';
+                }
             }
 
             // Get arguments
