@@ -40,7 +40,7 @@ describe(CmConfiguration.className, function()
      */
     describe('getMacroConfiguration', function()
     {
-        it('should use the first configured export as the default if not configured via export.settings', function()
+        xit('should use the first configured export as the default if not configured via export.settings', function()
         {
             const promise = co(function *()
             {

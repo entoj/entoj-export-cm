@@ -53,7 +53,9 @@ class CmConfiguration extends JspConfiguration
     generateViewProperties(configuration, overrides)
     {
         // get export configs
-        const exportConfigs = configuration.entity.properties.getByPath('export.' + this.identifier + '', []);
+        const exportConfigs = (configuration.macro && this.macro && configuration.macro.name !== this.macro.name)
+            ? configuration.entity.properties.getByPath('export.' + this.identifier + '', [])
+            : [];
 
         // add view
         if (typeof configuration.view !== 'string')
@@ -126,7 +128,6 @@ class CmConfiguration extends JspConfiguration
 
         return configuration;
     }
-
 
 
     /**
