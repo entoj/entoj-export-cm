@@ -40,18 +40,18 @@ class CmMacroNodeRenderer extends JspMacroNodeRenderer
             const macroConfiguration = yield configuration.getMacroConfiguration(node.name);
 
             // Render parameters
-            const modelEnabled = (macroConfiguration.model === false)
+            const defaultModel = (macroConfiguration.parameters && typeof macroConfiguration.parameters.model !== 'undefined')
                 ? false
                 : true;
             const parameters = yield prepareParameters(node, macroConfiguration, configuration);
             result+= yield configuration.renderer.renderComment('macro ' + node.name + ' parameters');
-            if (modelEnabled && macroConfiguration.modelParameter)
+            if (defaultModel && macroConfiguration.modelParameter)
             {
                 result+= '<c:set var="model" value="${ not empty model ? model : self }" />';
             }
-            if (!modelEnabled)
+            if (!defaultModel)
             {
-                result+= '<c:set var="model" value="${ null }" />';
+                result+= '<c:set var="model" value="${ ' + macroConfiguration.parameters.model + ' }" />';
             }
             for (const paramName in parameters)
             {
