@@ -65,15 +65,18 @@ class CmConfiguration extends JspConfiguration
             if (exportConfigs.length)
             {
                 // use the view settings for the designated macro
-                if(configuration.macro){
+                if (configuration.macro)
+                {
                     let item = this.filterExportConfigByMacroName(exportConfigs, configuration.macro.name);
-                    if(item){
+                    if (item)
+                    {
                         configuration.view = item.view;
                         configuration.viewVariant = item.viewVariant || false;
                         macroConfigurationAvailable = true;
                     }
                     // if there is no match use the settings of the first config
-                    else{
+                    else
+                    {
                         configuration.view = exportConfigs[0].view || false;
                     }
                 }
@@ -119,9 +122,17 @@ class CmConfiguration extends JspConfiguration
         return configuration;
     }
 
-    filterExportConfigByMacroName(exportConfig, macroName){
-        return exportConfig.find(item => {
-            if(item.macro && item.macro == macroName){
+    /**
+     * filters the configuration, provided by the entity.json, for the designated marco
+     * @param exportConfig
+     * @param macroName
+     */
+    filterExportConfigByMacroName(exportConfig, macroName)
+    {
+        return exportConfig.find(item =>
+        {
+            if (item.macro && item.macro == macroName)
+            {
                 return item;
             }
         });
