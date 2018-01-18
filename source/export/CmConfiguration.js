@@ -57,13 +57,30 @@ class CmConfiguration extends JspConfiguration
             ? configuration.entity.properties.getByPath('export.' + this.identifier + '', [])
             : [];
 
+        var macroConfigurationAvailable = false;
+
         // add view
         if (typeof configuration.view !== 'string')
         {
-            // if possible get the view of the first export
             if (exportConfigs.length)
             {
-                configuration.view = exportConfigs[0].view || false;
+                // use the view settings for the designated macro
+                if(configuration.macro){
+                    let item = this.filterExportConfigByMacroName(exportConfigs, configuration.macro.name);
+                    if(item){
+                        configuration.view = item.view;
+                        configuration.viewVariant = item.viewVariant || false;
+                        macroConfigurationAvailable = true;
+                    }
+                    // if there is no match use the settings of the first config
+                    else{
+                        configuration.view = exportConfigs[0].view || false;
+                    }
+                }
+                // if there is no match use the settings of the first config
+                else{
+                    configuration.view = exportConfigs[0].view || false;
+                }
             }
             // when we have a mscoe generate from name
             if (!configuration.view && configuration.macro)
@@ -84,7 +101,7 @@ class CmConfiguration extends JspConfiguration
         }
 
         // add viewVariant
-        if (!configuration.viewVariant)
+        if (!configuration.viewVariant && !macroConfigurationAvailable)
         {
             // if possible get the viewVariant of the first export
             if (exportConfigs && exportConfigs.length)
@@ -100,6 +117,14 @@ class CmConfiguration extends JspConfiguration
         }
 
         return configuration;
+    }
+
+    filterExportConfigByMacroName(exportConfig, macroName){
+        return exportConfig.find(item => {
+            if(item.macro && item.macro == macroName){
+                return item;
+            }
+        });
     }
 
 
