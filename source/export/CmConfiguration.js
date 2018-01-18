@@ -80,7 +80,8 @@ class CmConfiguration extends JspConfiguration
                     }
                 }
                 // if there is no match use the settings of the first config
-                else{
+                else
+                {
                     configuration.view = exportConfigs[0].view || false;
                 }
             }
