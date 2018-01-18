@@ -12,7 +12,7 @@ const co = require('co');
 class CmConfiguration extends JspConfiguration
 {
     /**
-     * @inheritDocs
+     * @inheritDoc
      */
     static get className()
     {
@@ -21,7 +21,7 @@ class CmConfiguration extends JspConfiguration
 
 
     /**
-     * @inheritDocs
+     * @inheritDoc
      */
     generateType(configuration, overrides)
     {
@@ -48,7 +48,7 @@ class CmConfiguration extends JspConfiguration
 
 
     /**
-     * @inheritDocs
+     * @inheritDoc
      */
     generateViewProperties(configuration, overrides)
     {
@@ -56,8 +56,7 @@ class CmConfiguration extends JspConfiguration
         const exportConfigs = (configuration.macro && this.macro && configuration.macro.name !== this.macro.name)
             ? configuration.entity.properties.getByPath('export.' + this.identifier + '', [])
             : [];
-
-        var macroConfigurationAvailable = false;
+        let macroConfigurationAvailable = false;
 
         // add view
         if (typeof configuration.view !== 'string')
@@ -67,7 +66,7 @@ class CmConfiguration extends JspConfiguration
                 // use the view settings for the designated macro
                 if (configuration.macro)
                 {
-                    let item = this.filterExportConfigByMacroName(exportConfigs, configuration.macro.name);
+                    const item = this.filterExportConfigByMacroName(exportConfigs, configuration.macro.name);
                     if (item)
                     {
                         configuration.view = item.view;
@@ -121,6 +120,7 @@ class CmConfiguration extends JspConfiguration
 
         return configuration;
     }
+
 
     /**
      * filters the configuration, provided by the entity.json, for the designated marco
