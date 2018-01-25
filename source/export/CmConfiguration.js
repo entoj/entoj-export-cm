@@ -141,7 +141,7 @@ class CmConfiguration extends JspConfiguration
 
 
     /**
-     * @inheritDocs
+     * @inheritDoc
      */
     generateFilename(configuration)
     {
@@ -152,7 +152,15 @@ class CmConfiguration extends JspConfiguration
             {
                 configuration.filename = configuration.namespace + '/';
             }
-            configuration.filename+= configuration.type + '.' + configuration.view;
+            configuration.filename+= configuration.type;
+            if (configuration.viewVariant || configuration.view)
+            {
+                configuration.filename+= '.';
+            }
+            if (configuration.view)
+            {
+                configuration.filename+= configuration.view;
+            }
             if (configuration.viewVariant)
             {
                 configuration.filename+= '[' + configuration.viewVariant + ']';
@@ -162,13 +170,12 @@ class CmConfiguration extends JspConfiguration
                 configuration.filename+= '.jsp';
             }
         }
-
         return configuration;
     }
 
 
     /**
-     * @inheritDocs
+     * @inheritDoc
      */
     refineConfiguration(configuration)
     {
