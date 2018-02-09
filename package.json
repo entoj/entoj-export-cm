@@ -13,9 +13,9 @@
   },
   "dependencies": {
     "co": "^4.6.0",
-    "entoj-system": "^0.2.0",
-    "entoj-export-jsp": "^0.2.0",
-    "entoj-html": "^0.2.2",
+    "entoj-system": "^0.2.15",
+    "entoj-export-jsp": "^0.2.4",
+    "entoj-html": "^0.2.4",
     "htmlspecialchars": "^1.0.5",
     "lodash.isplainobject": "^4.0.6"
   },
