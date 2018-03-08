@@ -148,9 +148,9 @@ class CmConfiguration extends JspConfiguration
         if (!this.settings.filename)
         {
             configuration.filename = '';
-            if (configuration.entity)
+            if (configuration.entity && this.moduleConfiguration.basePathTemplate)
             {
-                configuration.filename+= this.renderTemplate(configuration, this.moduleConfiguration.basePathTemplate);
+                configuration.filename+= this.renderTemplate(configuration, this.moduleConfiguration.basePathTemplate) + '/';
             }
             if (configuration.namespace)
             {
