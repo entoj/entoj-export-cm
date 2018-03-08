@@ -5,7 +5,7 @@
  * @ignore
  */
 const JspMacroNodeRenderer = require('entoj-export-jsp').export.renderer.JspMacroNodeRenderer;
-const prepareParameters = require('entoj-export-jsp').export.renderer.helper.prepareParameters;
+const prepareParameters = require('entoj-system').export.renderer.helper.prepareParameters;
 const co = require('co');
 const EOL = '\n';
 

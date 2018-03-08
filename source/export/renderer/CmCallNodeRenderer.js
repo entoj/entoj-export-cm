@@ -5,7 +5,7 @@
  * @ignore
  */
 const JspCallNodeRenderer = require('entoj-export-jsp').export.renderer.JspCallNodeRenderer;
-const prepareArguments = require('entoj-export-jsp').export.renderer.helper.prepareArguments;
+const prepareArguments = require('entoj-system').export.renderer.helper.prepareArguments;
 const MissingConfigurationError = require('entoj-system').error.MissingConfigurationError;
 const co = require('co');
 
