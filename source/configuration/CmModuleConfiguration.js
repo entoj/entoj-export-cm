@@ -24,7 +24,7 @@ class CmModuleConfiguration extends JspModuleConfiguration
 
 
     /**
-     * @inheritDocs
+     * @inheritDoc
      */
     static get injections()
     {
@@ -33,7 +33,7 @@ class CmModuleConfiguration extends JspModuleConfiguration
 
 
     /**
-     * @inheritDocss
+     * @inheritDoc
      */
     static get className()
     {
