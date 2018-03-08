@@ -6,9 +6,9 @@
  */
 const CmExporter = require('../export/CmExporter.js').CmExporter;
 const ExportTask = require('entoj-system').task.ExportTask;
+const EntitiesRepository = require('entoj-system').model.entity.EntitiesRepository;
 const GlobalRepository = require('entoj-system').model.GlobalRepository;
 const CliLogger = require('entoj-system').cli.CliLogger;
-const BuildConfiguration = require('entoj-system').model.configuration.BuildConfiguration;
 
 
 /**
@@ -17,26 +17,16 @@ const BuildConfiguration = require('entoj-system').model.configuration.BuildConf
 class CmExportTask extends ExportTask
 {
     /**
-     * @param {cli.CliLogger} cliLogger
-     * @param {model.GlobalRepository} globalRepository
-     */
-    constructor(cliLogger, globalRepository, buildConfiguration, CmExporter)
-    {
-        super(cliLogger, globalRepository, CmExporter);
-    }
-
-
-    /**
-     * @inheritDocs
+     * @inheritDoc
      */
     static get injections()
     {
-        return { 'parameters': [CliLogger, GlobalRepository, BuildConfiguration, CmExporter] };
+        return { 'parameters': [CliLogger, EntitiesRepository, GlobalRepository, CmExporter] };
     }
 
 
     /**
-     * @inheritDocs
+     * @inheritDoc
      */
     static get className()
     {
@@ -45,7 +35,7 @@ class CmExportTask extends ExportTask
 
 
     /**
-     * @inheritDocs
+     * @inheritDoc
      */
     get sectionName()
     {
@@ -54,7 +44,7 @@ class CmExportTask extends ExportTask
 
 
     /**
-     * @inheritDocs
+     * @inheritDoc
      */
     get exportName()
     {
