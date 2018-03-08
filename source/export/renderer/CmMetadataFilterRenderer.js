@@ -52,7 +52,13 @@ class CmMetadataFilterRenderer extends JspFilterReplacementRenderer
             }
 
             // Get data
-            const metadataName = trimQuotes(yield configuration.renderer.renderNode(filter.value, configuration));
+            const metadataName = filter.value.is('LiteralNode')
+                ? filter.value.value
+                : trimQuotes(yield configuration.renderer.renderNode(filter.value, configuration));
+            if (typeof metadataName !== 'string')
+            {
+                return result;
+            }
 
             // Render
             if (metadataName === 'entity')

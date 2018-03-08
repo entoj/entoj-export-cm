@@ -98,7 +98,6 @@ describe(CmExporter.className, function()
             return promise;
         });
 
-
         it('should export the configured macro of given entity', function()
         {
             const promise = co(function*()
@@ -110,7 +109,6 @@ describe(CmExporter.className, function()
             return promise;
         });
 
-
         it('should allow to preconfigure macro parameters values', function()
         {
             const promise = co(function*()
@@ -119,7 +117,10 @@ describe(CmExporter.className, function()
                 {
                     parameters:
                     {
-                        classes: 'configured'
+                        classes:
+                        {
+                            value: 'configured'
+                        }
                     }
                 };
                 yield expectFixture('macro-arguments', 'e-image', undefined, settings);
@@ -127,6 +128,58 @@ describe(CmExporter.className, function()
             return promise;
         });
 
+        it('should allow to rename macro parameters', function()
+        {
+            const promise = co(function*()
+            {
+                const settings =
+                {
+                    parameters:
+                    {
+                        classes:
+                        {
+                            name: 'style'
+                        }
+                    }
+                };
+                yield expectFixture('rename-macro-parameters', 'e-image', undefined, settings);
+            });
+            return promise;
+        });
+
+        it('should allow to preconfigure call arguments', function()
+        {
+            const promise = co(function*()
+            {
+                const settings =
+                {
+                    settings:
+                    {
+                        e_cta:
+                        {
+                            arguments:
+                            {
+                                skin: 'dark'
+                            }
+                        }
+                    }
+                };
+                yield expectFixture('call-arguments', 'm-teaser', undefined, settings);
+            });
+            return promise;
+        });
+
+        it('should inline macro calls that uses yield', function()
+        {
+            const promise = co(function*()
+            {
+                const settings =
+                {
+                };
+                yield expectFixture('auto-inline', 'm-teaser', undefined, settings);
+            });
+            return promise;
+        });
 
         it('should allow to export templates', function()
         {

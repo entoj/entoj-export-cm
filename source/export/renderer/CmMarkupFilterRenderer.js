@@ -53,7 +53,7 @@ class CmMarkupFilterRenderer extends JspFilterReplacementRenderer
             // Get data
             const filterName = (filter.arguments.length)
                 ? yield configuration.renderer.renderNode(filter.arguments[0].value, configuration)
-                : 'tkPlain';
+                : '\'tkPlain\'';
 
             // Render
             if (scope.isSet(node, configuration))

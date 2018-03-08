@@ -39,7 +39,7 @@ class CmExportCommand extends ExportCommand
 
 
     /**
-     * @inheritDocs
+     * @inheritDoc
      */
     static get className()
     {
@@ -48,7 +48,18 @@ class CmExportCommand extends ExportCommand
 
 
     /**
-     * @inheritDocs
+     * @inheritDoc
+     */
+    addTaskOptions(options)
+    {
+        const result = options || {};
+        result.exportMinimal = true;
+        return Promise.resolve(result);
+    }
+
+
+    /**
+     * @inheritDoc
      */
     addTasks(task, mapping)
     {

@@ -15,11 +15,15 @@ const BuildConfiguration = require('entoj-system').model.configuration.BuildConf
 class CmModuleConfiguration extends JspModuleConfiguration
 {
     /**
-     * @param  {model.configuration.GlobalConfiguration} globalConfiguration
+     * @param {model.configuration.GlobalConfiguration} globalConfiguration
+     * @param {model.configuration.BuildConfiguration} buildConfiguration
      */
     constructor(globalConfiguration, buildConfiguration)
     {
         super(globalConfiguration, buildConfiguration, { prefix: 'cm' });
+
+        // Create configuration
+        this._basePathTemplate = buildConfiguration.get('cm.basePathTemplate', globalConfiguration.get('cm.basePathTemplate', '${site.name.urlify()}'));
     }
 
 

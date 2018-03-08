@@ -34,9 +34,9 @@ ${ pageContext.request.contextPath.concat('/').concat(url) }
 <fmt:message key="${ 'key' }" />
 
 
-<c:set var="html"><cm:include self="${ content }" view="${ tkPlain }" /></c:set>
+<c:set var="html"><cm:include self="${ content }" view="${ 'tkPlain' }" /></c:set>
 <c:set var="html"><cm:include self="${ 'content' }" view="${ 'default' }" /></c:set>
-<cm:include self="${ content }" view="${ tkPlain }" />
+<cm:include self="${ content }" view="${ 'tkPlain' }" />
 
 
 <c:set var="date"><fmt:formatDate value="${ timestamp.time }" type="date" pattern="YYYY-MM-DD" /></c:set>

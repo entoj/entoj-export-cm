@@ -22,5 +22,5 @@ describe(CmExportCommand.className, function()
         return [fixture.context];
     }
 
-    exportCommandSpec(CmExportCommand, 'command/CmExportCommand', prepareParameters, { action: 'jsp' });
+    exportCommandSpec(CmExportCommand, 'command/CmExportCommand', prepareParameters, { action: 'cm' });
 });

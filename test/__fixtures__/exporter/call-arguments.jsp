@@ -1,0 +1,40 @@
+<%@ page contentType="text/html; charset=UTF-8" session="false" %><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%><%@ taglib prefix="entoj" uri="https://entoj.io/entoj"%><%@ taglib prefix="cm" uri="http://www.coremedia.com/2004/objectserver-1.0-2.0"%><%@ taglib prefix="bp" uri="http://www.coremedia.com/2012/blueprint"%><!-- <%--@elvariable id="settingsService" type="com.coremedia.blueprint.base.settings.SettingsService"--%> --><!-- macro m_teaser parameters -->
+<c:set var="model" value="${ not empty model ? model : self }" /><c:set var="type" value="${ not empty type ? type : 'content' }" />
+<c:set var="classes" value="${ not empty classes ? classes : '' }" />
+<!-- /macro m_teaser parameters -->
+<!-- macro m_teaser body -->
+
+
+    
+    
+    <c:set var="moduleClass" value="${ 'm-teaser' }" />
+    <c:set var="moduleClasses" value="${ moduleClass } ${ not empty type ? moduleClass.concat('--').concat(type) : '' }" />
+    <c:set var="imageSettings" value="${ { 'mobile': { 'name': 'mobile', 'aspect': '1x1', 'width': 410 }, 'all': { 'aspect': '16x9', 'width': 830 } } }" />
+
+    
+    <div class="${ moduleClasses } ${ classes }" data-entity="${ moduleClass }">
+        <jsp:include page="/base/includes/elements/e-image.jsp"><jsp:param name="model" value="${ model.image }" /><jsp:param name="settings" value="${ imageSettings }" /><jsp:param name="classes" value="${ moduleClass.concat('__image') }" /></jsp:include>
+        <div class="${ moduleClass }__body">
+            <c:set var="text_u1" value="${ '' }" /><c:set var="level_u1" value="${ 3 }" /><c:set var="skin_u1" value="${ 'light' }" /><c:set var="classes_u1" value="${ moduleClass.concat('__headline') }" />
+
+    
+    <c:set var="moduleClass_u1" value="${ 'e-headline' }" />
+    <c:set var="element_u1" value="${ 'h'.concat(level_u1) }" />
+    <c:set var="moduleClasses_u1" value="${ moduleClass_u1 } ${ not empty element_u1 ? moduleClass_u1.concat('--').concat(element_u1) : '' }" />
+
+    
+    <${ element_u1 } class="${ moduleClasses_u1 } ${ classes_u1 }">
+        ${ text_u1 }${ model.headline }
+    </${ element_u1 }>
+
+
+            <p class="${ moduleClass }__copy">${ model.copy }</p>
+            <c:choose><c:when test="${type == 'content'}">
+                <jsp:include page="/base/includes/elements/e-cta.jsp"><jsp:param name="type" value="${ 'tertiary' }" /><jsp:param name="skin" value="${ 'dark' }" /><jsp:param name="text" value="${ model.cta }" /><jsp:param name="link" value="${ model.link }" /><jsp:param name="classes" value="${ moduleClass.concat('__cta') }" /></jsp:include>
+            </c:when><c:otherwise>
+                <jsp:include page="/base/includes/elements/e-cta.jsp"><jsp:param name="type" value="${ 'secondary' }" /><jsp:param name="skin" value="${ 'dark' }" /><jsp:param name="text" value="${ model.cta }" /><jsp:param name="link" value="${ model.link }" /><jsp:param name="classes" value="${ moduleClass.concat('__cta') }" /></jsp:include>
+            </c:otherwise></c:choose>
+        </div>
+    </div>
+
+<!-- /macro m_teaser body -->

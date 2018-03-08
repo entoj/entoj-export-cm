@@ -32,7 +32,6 @@ describe(CmConfiguration.className, function()
             return [undefined, undefined, {}, undefined, undefined, undefined, fixture.globalRepository, fixture.buildConfiguration, moduleConfiguration];
         }
     }
-
     configurationSpec(CmConfiguration, 'export/CmConfiguration', prepareParameters, { identifier: 'cm' });
 
     /**
