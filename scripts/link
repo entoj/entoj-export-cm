@@ -8,6 +8,4 @@ set -e
 SELF=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 # Doit
-npm link entoj-system
-npm link entoj-html
-npm link entoj-export-jsp
+npm link entoj-system entoj-export-jsp entoj-html entoj-test-fixture
