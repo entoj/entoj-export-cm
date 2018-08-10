@@ -4,11 +4,11 @@
 <!-- macro e_image body -->
 
 
-
-
+    
+    
     <c:set var="moduleClass" value="${ 'e-image' }" />
 
-
+    
     <picture class="${ moduleClass } ${ style }">
         <c:set var="image" value="${ null }" />
         <c:if test="${ not empty settings }">
